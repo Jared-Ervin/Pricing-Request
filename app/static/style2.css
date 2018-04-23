@@ -1,0 +1,40 @@
+h3 {
+  text-decoration: underline;
+}
+form {
+  padding: 20px;
+}
+.left-side {
+  margin-right: 100px;
+  display: inline-block;
+}
+.left-side div {
+  display: block;
+}
+.left-side fieldset {
+  margin: 20px 0;
+}
+.left-side fieldset > label {
+  padding-right: 20px;
+}
+.right-side {
+  vertical-align: top;
+  display: inline-block;
+}
+.toolbar-section {
+  width: 100%;
+  margin-top: 50px;
+}
+.info-section {
+  margin: 15px 0;
+}
+.info-section > * {
+  display: inline-block;
+  vertical-align: top;
+}
+.info-section table {
+  margin-right: 200px;
+}
+.info-section ul li {
+  padding: 0;
+}
