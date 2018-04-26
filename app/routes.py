@@ -23,7 +23,7 @@ def dated_url_for(endpoint, **values):
 @app.route('/')
 @app.route('/index')
 def index():
-    return render_template("index2.html", title="Home")
+    return render_template("index.html", title="Home")
 
 
 @app.route('/handle_data', methods=["POST"])

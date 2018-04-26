@@ -1,8 +1,8 @@
-h3 {
-  text-decoration: underline;
-}
 form {
   padding: 20px;
+}
+.formtitle {
+  padding-top: 10px;
 }
 .left-side {
   margin-right: 100px;
@@ -37,4 +37,7 @@ form {
 }
 .info-section ul li {
   padding: 0;
+}
+.checkbox {
+  display: inline-block;
 }
