@@ -41,3 +41,7 @@ form {
 .checkbox {
   display: inline-block;
 }
+::placeholder {
+  color: rgb(179, 178, 178);
+  opacity: 1;
+}

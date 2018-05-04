@@ -29,40 +29,42 @@ def index():
 @app.route('/handle_data', methods=["POST"])
 def handle_data():
     data = request.form.to_dict()
+    price_options = ["Review Only", "High Margin",
+                     "Mid Tier", "Agressive", "Floor"]
+    selected_prices = []
+    flag = ''
+    for key in data:
+        if key in price_options:
+            selected_prices.append(key)
+    data2 = data.copy()
+    data2["pricepoint"] = selected_prices
     try:
-        data["time"] = datetime.strptime(
-            data["time"], "%H:%M").strftime("%I:%M %p")
+        data2["time"] = datetime.strptime(
+            data2["time"], "%H:%M").strftime("%I:%M %p")
     except Exception:
-        data["time"] = ''
-
+        data2["time"] = ''
     outlook = win32com.client.Dispatch("Outlook.Application")
     mail = outlook.CreateItem(int(0))
     mail.To = ("j.ervin@supply.com;")
     try:
-        if data["timing"] != '':
+        if data2["timing"] != '':
             mail.Importance = 2
+            flag = "URGENT - "
     except Exception:
         mail.Importance = 1
-    mail.Subject = "Pricing Request - " + str(data["number"].upper())
-    mail.Body = f"""
-        Sales Rep: 
-        {data["fullname"].title()}
-
-        Estimate Number: 
-        {data["number"].upper()}
-
-        FFA Maufacturers: 
-        {data["ffa"].title()}
-
-        Job Pricing: 
-        {data["job"].title()}
-
-        Due By: 
-        {data["time"]}
-
-        Notes: 
-        {data["description"]}
-    """
+    mail.Subject = flag + "Pricing Request - " + str(data2["number"].upper())
+    mail.HTMLBody = render_template(
+        "email.html",
+        # name=data2["fullname"].title(),
+        number=data2["number"].upper(),
+        ffa=data2["ffa"].title(),
+        job=data2["job"].title(),
+        need=data2["time"],
+        price=', '.join(data2["pricepoint"]),
+        floor=data2["floor"].title(),
+        pay=data2["paytype"].title(),
+        ship=data2["shipments"].title(),
+        notes=data2["description"])
     mail.Send()
 
-    return render_template("complete.html", title="Submitted")
+    return render_template("submit.html")
