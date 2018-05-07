@@ -5653,7 +5653,7 @@ fieldset[disabled] .mdl-switch .mdl-switch__ripple-container .mdl-ripple,
   outline: none;
 }
 .mdl-textfield.is-invalid .mdl-textfield__input {
-  border-color: #d50000;
+  /*border-color: #d50000;*/
   box-shadow: none;
 }
 fieldset[disabled] .mdl-textfield .mdl-textfield__input,
@@ -5736,7 +5736,7 @@ fieldset[disabled] .mdl-textfield .mdl-textfield__label,
   width: 100%;
 }
 .mdl-textfield.is-invalid .mdl-textfield__label:after {
-  background-color: #d50000;
+  /*background-color: #d50000;*/
 }
 .mdl-textfield__error {
   color: #d50000;
