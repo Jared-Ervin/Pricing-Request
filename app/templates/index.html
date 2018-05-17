@@ -13,144 +13,246 @@
     <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
     <script defer src="https://rawgit.com/MEYVN-digital/mdl-selectfield/master/mdl-selectfield.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename = 'material.js') }}"></script>
-    <script>
+    <!-- <script>
         function showHideForm(box, id, id2) {
-            const div = document.getElementById(id);
-            const elm = document.getElementById(id2);
-            console.log(box.checked)
-            if (box.checked) {
-                div.style.display = ""
+            const elm = document.getElementById(id);
+            const div = document.getElementById(id2)
+            if (box.value == "aggressive") {
+                elm.removeAttribute("disabled")
                 elm.required = true
+                div.style.display = ""
             }
             else {
-                div.style.display = 'none'
+                elm.setAttribute("disabled", "disabled")
                 elm.required = false
+                div.style.display = "none"
             }
         }
-    </script>
+    </script> -->
 
 </head>
 
 <body>
+
     <form action="{{ url_for('handle_data') }}" method="post">
+
         <h3 id="formtitle">Estimate Pricing Request</h3>
 
-        <div>
-            <div class="left-side">
+        <div class="left-side">
+            <fieldset>
                 <div>
-                    <label>Estimate Number*</label>
-                    <input type="text" name="number" style="text-transform: uppercase" required/>
+                    <label>Estimate Number</label>
+                    <input type="text" name="Estimate Number" style="text-transform: uppercase" required/>
                 </div>
-                <div>
-                    <label>FFA Manufacturers</label>
-                    <input type="text" name="ffa" style="text-transform: capitalize" />
-                </div>
-                <div>
-                    <label>Job Pricing Manufacturers</label>
-                    <input type="text" name="job" style="text-transform: capitalize" />
-                </div>
-                <div>
-                    <label>Additional Notes</label>
-                    <textarea rows="2" cols="50" name="description" id="my-textarea"></textarea>
-                </div>
-                <div>
-                    <fieldset>
-                        <legend>
-                            <b>Time Frame</b>
-                        </legend>
-                        <label>
-                            <span>Needed By*</span>
-                            <span style="padding-left: 25px">Urgent?</span>
-                            <br>
-                            <input type="time" name="time" value="time" required/>
-                            <span style="padding-left: 20px">
-                                <input type="checkbox" id="list-checkbox-1" name="timing" />
-                            </span>
-                        </label>
-                    </fieldset>
-                </div>
-            </div>
-            <div class="right-side">
-                <div>
-                    <br>
-                    <fieldset>
-                        <legend>
-                            <b>Price Point</b>
-                        </legend>
-                        <label>
-                            <input type="checkbox" id="list-checkbox-2" name="Review Only" />
-                            <span>Review Only</span>
-                        </label>
-                        <label>
-                            <input type="checkbox" id="list-checkbox-3" name="High Margin" />
-                            <span>High Margin</span>
-                        </label>
-                        <label>
-                            <input type="checkbox" id="list-checkbox-4" name="Mid Tier" />
-                            <span>Mid Tier</span>
-                        </label>
-                        <label>
-                            <input type="checkbox" id="list-checkbox-5" name="Agressive" />
-                            <span>Aggressive</span>
-                        </label>
-                        <label>
-                            <input type="checkbox" id="list-checkbox-6" name="Floor" onchange="showHideForm(this,'iffloor', 'floor')" />
-                            <span>Floor</span>
-                        </label>
-                    </fieldset>
-                    <fieldset>
-                        <div id="iffloor" style="display: none">
-                            <legend>
-                                <b>Reason for Floor Pricing:*</b>
-                            </legend>
-                            <label>
-                                <select name="floor" id="floor">
-                                    <option value=""></option>
-                                    <option value="Competitive Bid">Competitive Bid</option>
-                                    <option value="Negotiation Room">Negotiation Room</option>
-                                    <option value="Other: See Notes">Other: See Notes</option>
-                                </select>
-                            </label>
-                        </div>
+            </fieldset>
+            <h5>
+                Mandatory
+            </h5>
+
+            <fieldset>
+                <div style="width: 400px">
+                    <div style="float: left ;color: rgb(63, 81, 181);
+                    font-size: 12px;">
+                        <label>Estimated Date of Purchase:</label>
                         <br>
-                        <div>
-                            <legend>
-                                <b>Payment Type*</b>
-                            </legend>
-                            <label>
-                                <select name="paytype" required>
-                                    <option value="Credit Card">Credit Card</option>
-                                    <option value="Blue Tarp">Blue Tarp</option>
-                                    <option value="Wire Transfer/Check">Wire Transfer/Check</option>
-                                    <option value="Terms">Terms</option>
-                                </select>
-                            </label>
-                            <br>
-                            <legend>
-                                <b>Number of Shipments*</b>
-                            </legend>
-                            <label>
-                                <select name="shipments" required>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4+">4+</option>
-                                </select>
-                            </label>
-                        </div>
-                    </fieldset>
+                        <input type="date" name="Purchase Date" value="Date" required/>
+                    </div>
+                    <div style="float: right; color: rgb(63, 81, 181);
+                    font-size: 12px;">
+                        <label>Shipment Needed By:</label>
+                        <br>
+                        <input type="date" name="Shipment Date" value="Date" required/>
+                    </div>
                 </div>
-            </div>
+            </fieldset>
+
+            <fieldset>
+                <div style="width: 400px">
+                    <div class="mdl-selectfield--floating-label" style="width: 220px; float: left;">
+                        <label>Price Point:</label>
+                        <select name="Price Point" onchange="showHideForm(this,'floor', 'agg')" required>
+                            <option value=""></option>
+                            <option value="Review">Review exisiting pricing</option>
+                            <option value="Slight Discount">Slight discount</option>
+                            <option value="Significant Discount">Significant discount</option>
+                            <option value="Aggressive">As aggressive as allowable</option>
+                        </select>
+                    </div>
+
+                    <div class="mdl-selectfield--floating-label" id="agg" style=" width: 150px; float: right;">
+                        <label>Reason for Pricing:</label>
+                        <select name="Reason" id="floor" required>
+                            <option value=""></option>
+                            <option value="Match">Price match</option>
+                            <option value="Existing">Existing agreement</option>
+                            <option value="Future">Winning future business</option>
+                            <option value="Bidding">Bidding situation</option>
+                            <option value="No Value">We offer no value</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div style="width: 400px">
+                    <div class="mdl-selectfield--floating-label" style="float: left; width: 120px">
+                        <label>Payment Type:</label>
+                        <select name="Payment Type" required>
+                            <option value=""></option>
+                            <option value="Credit Card">Credit Card</option>
+                            <option value="Blue Tarp">Blue Tarp</option>
+                            <option value="Wire Transfer/Check">Wire Transfer</option>
+                            <option value="Wire Transfer/Check">Check</option>
+                            <option value="Terms">Existing Terms</option>
+                            <option value="Terms">New Terms</option>
+                        </select>
+                    </div>
+                    <div class="mdl-selectfield--floating-label" style="float: right; width: 160px">
+                        <label>Number of Shipments:</label>
+                        <select name="Shipments" required>
+                            <option value=""></option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4+">4+</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <h5>Optional</h5>
+            <fieldset>
+                <div style="width: 400px; font-size: 12px;">
+                    <div style="float: left; width: 200px">
+                        <legend>
+                            <b>Residential or Commercial?</b>
+                        </legend>
+                        <label>
+                            <input type="radio" name="Residential or Commercial" id="resorcom1" value="Residential" />Residential
+                        </label>
+                        <label>
+                            <input type="radio" name="Residential or Commercial" id="resorcom2" value="Commercial" />Commercial
+                        </label>
+                        <label>
+                            <input type="hidden" name="Residential or Commercial" value="">
+                        </label>
+                        <br>
+                        <br>
+                        <legend>
+                            <b>New Construction or Remodel?</b>
+                        </legend>
+                        <label>
+                            <input type="radio" name="New or Old" id="neworold1" value="New Construction" />New Construction
+                        </label>
+                        <label>
+                            <input type="radio" name="New or Old" id="neworold2" value="Remodel" />Remodel
+                        </label>
+                        <label>
+                            <input type="hidden" name="New or Old" value="">
+                        </label>
+                        <br>
+                        <br>
+                        <legend>
+                            <b>If Bid, How Many Competitors?</b>
+                        </legend>
+                        <label>
+                            <input type="radio" name="Competitors" id="comp1" value="1" />1
+                        </label>
+                        <label>
+                            <input type="radio" name="Competitors" id="comp2" value="2" />2
+                        </label>
+                        <label>
+                            <input type="radio" name="Competitors" id="comp3" value="3" />3
+                        </label>
+                        <label>
+                            <input type="radio" name="Competitors" id="comp4" value="4" />4+
+                        </label>
+                        <label>
+                            <input type="hidden" name="Competitors" value="">
+                        </label>
+                    </div>
+
+                    <div style="float: right; width: 150px; font-size: 12px;">
+                        <legend>
+                            <b>What Kind of Discount?</b>
+                        </legend>
+                        <label>
+                            <input type="radio" name="Discount" id="discount1" value="Order Level" />Order Level
+                        </label>
+                        <label>
+                            <input type="radio" name="Discount" id="discount2" value="Line Level" />Line Level
+                        </label>
+                        <label>
+                            <input type="hidden" name="Discount" value="">
+                        </label>
+                        <br>
+
+                    </div>
+                    <div style="float: right; width: 150px; font-size: 12px;">
+
+
+                        <label id="test">
+                            <b>FFA Manufacturers</b>
+                        </label>
+                        <textarea rows="1" cols="50" name="FFA Manufacturers"></textarea>
+                    </div>
+                    <div style="float: right; width: 150px; font-size: 12px;">
+                        <label>
+                            <b>Additional Notes</b>
+                        </label>
+                        <textarea rows="2" cols="50" name="Additional Notes"></textarea>
+
+                    </div>
+
+
+                </div>
+            </fieldset>
+
+
+            <!-- <fieldset>
+                <br>
+                <label>
+                    <b>Additional Notes</b>
+                </label>
+                <textarea rows="2" cols="50" name="description" id="my-textarea"></textarea>
+            </fieldset> -->
         </div>
+
+        <div class="right-side" style="width: 500px;">
+            <h5>Instructions</h5>
+            <p>
+                Please fill out the form with all relevant information. The more information you provide, the more accurate pricing you will
+                recive.
+                <b>Prior to submiting this form, please ensure that you have completed the followig in Netsuite:</b>
+            </p>
+            <ol>
+                <li>Populated the shipping cost field</li>
+                <li>Populated any job pricing if applicable</li>
+            </ol>
+
+        </div>
+
         <div class="toolbar-section">
+
+            <fieldset style="padding-bottom: 20px; color: rgb(63, 81, 181);
+            font-size: 12px">
+                <label>
+                    <span>Response Needed By:</span>
+                    <br>
+                    <span id="time">
+                        <input type="time" name="Needed By" value="time" required/>
+                    </span>
+                    <span id="urgent">Urgent?
+                        <input type="checkbox" id="list-checkbox-1" name="Urgent" />
+                    </span>
+                </label>
+            </fieldset>
             <button type="submit">OK</button>
             <button type="reset">Cancel</button>
-            <p style="padding-top: 30px">
-                <i>Fields denoted with an
-                    <b>*</b> are mandatory.</i>
-            </p>
         </div>
+
     </form>
+
 </body>
 
 </html>

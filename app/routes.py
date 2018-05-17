@@ -29,42 +29,42 @@ def index():
 @app.route('/handle_data', methods=["POST"])
 def handle_data():
     data = request.form.to_dict()
-    price_options = ["Review Only", "High Margin",
-                     "Mid Tier", "Agressive", "Floor"]
-    selected_prices = []
-    flag = ''
-    for key in data:
-        if key in price_options:
-            selected_prices.append(key)
-    data2 = data.copy()
-    data2["pricepoint"] = selected_prices
+
     try:
-        data2["time"] = datetime.strptime(
-            data2["time"], "%H:%M").strftime("%I:%M %p")
+        data["Needed By"] = datetime.strptime(
+            data["Needed By"], "%H:%M").strftime("%I:%M %p")
     except Exception:
-        data2["time"] = ''
+        data["Needed By"] = ''
     outlook = win32com.client.Dispatch("Outlook.Application")
     mail = outlook.CreateItem(int(0))
     mail.To = ("j.ervin@supply.com;")
-    try:
-        if data2["timing"] != '':
-            mail.Importance = 2
-            flag = "URGENT - "
-    except Exception:
-        mail.Importance = 1
-    mail.Subject = flag + "Pricing Request - " + str(data2["number"].upper())
+
+    if "Urgent" in data:
+        mail.Importance = 2
+        flag = "URGENT - "
+    else:
+        flag = ''
+
+    mail.Subject = flag + "Pricing Request - " + \
+        str(data["Estimate Number"].upper())
+
     mail.HTMLBody = render_template(
         "email.html",
-        # name=data2["fullname"].title(),
-        number=data2["number"].upper(),
-        ffa=data2["ffa"].title(),
-        job=data2["job"].title(),
-        need=data2["time"],
-        price=', '.join(data2["pricepoint"]),
-        floor=data2["floor"].title(),
-        pay=data2["paytype"].title(),
-        ship=data2["shipments"].title(),
-        notes=data2["description"])
+        EstimateNumber=data["Estimate Number"].upper(),
+        NeededBy=data["Needed By"],
+        PurchaseDate=data["Purchase Date"],
+        ShipmentDate=data["Shipment Date"],
+        PricePoint=data["Price Point"],
+        Reason=data["Reason"],
+        PaymentType=data["Payment Type"],
+        NumberofShipments=data["Shipments"],
+        ResidentialorCommercial=data["Residential or Commercial"],
+        NeworOld=data["New or Old"],
+        Competitors=data["Competitors"],
+        Discount=data["Discount"],
+        FFAManufacturers=data["FFA Manufacturers"],
+        AdditionalNotes=data["Additional Notes"]
+    )
     mail.Send()
 
     return render_template("submit.html")

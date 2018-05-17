@@ -1,71 +1,121 @@
 <html>
 
-<body>
-    <table border=1 frame=void rules=rows style='
+<head>
+    <Style>
+        table {
+            border-collapse: collapse;
+            table-layout: fixed;
+            width: 310px;
             font-family: Arial, Helvetica, sans-serif;
             border: solid black 2px;
-         width: 50%;'>
+        }
+
+        table td {
+            width: 100px;
+            word-wrap: break-word;
+        }
+    </Style>
+</head>
+
+<body>
+    <table border=1 frame=void rules=rows>
+
+        <td>
+            <b>Estimate Number:</b>
+        </td>
+        <td>{{EstimateNumber}}</td>
+        </tr>
+
         <tr>
             <td>
-                <b>Sales Rep:</b>
+                <b>Needed By:</b>
             </td>
-            <td>{{name}}</td>
+            <td>{{NeededBy}}</td>
         </tr>
+
         <tr>
             <td>
-                <b>Estimate Number:</b>
+                <b>Purchase Date:</b>
             </td>
-            <td>{{number}}</td>
+            <td>{{PurchaseDate}}</td>
         </tr>
+
         <tr>
             <td>
-                <b>FFA Manufacturers:</b>
+                <b>Shipment Date:</b>
             </td>
-            <td>{{ffa}}</td>
+            <td>{{ShipmentDate}}</td>
         </tr>
-        <tr>
-            <td>
-                <b>Job Pricing Manufacturers:</b>
-            </td>
-            <td>{{job}}</td>
-        </tr>
-        <tr>
-            <td>
-                <b>Needed by:</b>
-            </td>
-            <td>{{need}}</td>
-        </tr>
+
         <tr>
             <td>
                 <b>Price Point:</b>
             </td>
-            <td>{{price}}</td>
+            <td>{{PricePoint}}</td>
         </tr>
+
         <tr>
             <td>
-                <b>Reason for Floor Pricing:</b>
+                <b>Reason for Pricing:</b>
             </td>
-            <td>{{floor}}</td>
+            <td>{{Reason}}</td>
         </tr>
+
         <tr>
             <td>
                 <b>Payment Type:</b>
             </td>
-            <td>{{pay}}</td>
+            <td>{{PaymentType}}</td>
         </tr>
+
         <tr>
             <td>
                 <b>Number of Shipments:</b>
             </td>
-            <td>{{ship}}</td>
+            <td>{{NumberofShipments}}</td>
         </tr>
+
         <tr>
             <td>
-                <b>Additional Notes:</b>
+                <b>Residential or Commercial:</b>
             </td>
-            <td>{{notes}}</td>
+            <td>{{ResidentialorCommercial}}</td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>New Construction or Remodel:</b>
+            </td>
+            <td>{{NeworOld}}</td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>Number of Bid Competitors:</b>
+            </td>
+            <td>{{Competitors}}</td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>Discount Type:</b>
+            </td>
+            <td>{{Discount}}</td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>FFA Manufacturers:</b>
+            </td>
+            <td>{{FFAManufacturers}}</td>
         </tr>
     </table>
+
+<br>
+    <b>Additional Notes:</b>
+
+    <p>{{AdditionalNotes}}</p>
+    </tr>
 </body>
 
 </html>
